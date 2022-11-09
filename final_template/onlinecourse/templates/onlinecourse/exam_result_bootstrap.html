@@ -51,12 +51,18 @@
                                 <h5>{{ question.question_text }}</h5>
                             </div>
                             {% for choice in question.choice_set.all %}
-                                {{ choice.choice_text }}
-                                <br>
+                                {% for answer in answers %}
+                                    {% if choice.id == answer %}
+                                        <br>
+                                        {{ choice.choice_text }}
+                                        {{ choice.is_correct }}
+                                        <br>
+                                    {% else %}
+                                    {% endif %}
+                                {% endfor %}
                             {% endfor %}   
                         </div>
     {% endfor %}
-    {{ answers }}
 </div>
 </body>
 </html>

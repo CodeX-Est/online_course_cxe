@@ -129,7 +129,7 @@ class Question(models.Model):
 class Choice(models.Model):
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE)# Foreign key to lesson
     choice_text = models.TextField()
-    is_correct = True
+    is_correct = models.BooleanField(default=True)
 
     def is_get_score(self, selected_ids):
         all_answers = self.choice_set.filter(is_correct=True).count()
