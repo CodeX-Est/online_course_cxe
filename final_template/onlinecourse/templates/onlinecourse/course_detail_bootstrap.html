@@ -60,7 +60,7 @@
                     {% for question in course.question_set.all %}
                         <div class="card mt-1">
                             <div class="card-header">
-                                <h5>{{ question.question_text}}</h5>
+                                <h5>{{ question.question_text }}</h5>
                             </div>
                             {% csrf_token %}
                             <div class="form-group">
@@ -71,13 +71,14 @@
                                                    class="form-check-input" id="{{choice.id}}"
                                                    value="{{choice.id}}">
                                                 {{ choice.choice_text }}
+                                                {{ submitted_answers }}
                                             </label>
                                     </div>
                                 {% endfor %}
                             </div>
                         </div>
                     {% endfor %}
-                    <input class="btn btn-success btn-block" type="submit" value="Submit">test</button> 
+                    <input class="btn btn-success btn-block" type="submit" value="Submit"> 
                 </form>
             </div>
             <!-- 
