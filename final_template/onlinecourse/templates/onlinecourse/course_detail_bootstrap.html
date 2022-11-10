@@ -28,7 +28,7 @@
                         {% csrf_token %}
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Username" name="username" >
-                            <input type="password" class="form-control" placeholder="Username" name="psw" >
+                            <input type="password" class="form-control" placeholder="Password" name="psw" >
                             <button class="btn btn-primary" type="submit">Login</button>
                             <a class="btn btn-link" href="{% url 'onlinecourse:registration' %}">Sign Up</a>
                         </div>
@@ -53,6 +53,7 @@
             <!-- Task: show questions and choices -->
             <!-- <HINT> Use Bootstrap Collapse to hide exam first, more details could be found here
             https://www.w3schools.com/bootstrap4/bootstrap_collapse.asp-->
+            {% if user.is_authenticated %}
             <button class="btn btn-primary btn-block" data-toggle="collapse" data-target="#demo">Start Exam</button>
 
             <div id="demo" class="collapse">
@@ -80,6 +81,7 @@
                     <input class="btn btn-success btn-block" type="submit" value="Submit"> 
                 </form>
             </div>
+            {% endif %}
             <!-- 
 
             A collapse example here:
