@@ -137,6 +137,7 @@ def submit(request, course_id):
     user = request.user
     enrollment = Enrollment.objects.get(user=user, course=course)
     submission = Submission.objects.create(enrollment=enrollment)
+    choices = Choice.objects.all()
     def extract_answers(request):
         submitted_answers = []
         for key in request.POST:
@@ -146,7 +147,28 @@ def submit(request, course_id):
                 submitted_answers.append(choice_id)
         return submitted_answers
     answers = extract_answers(request)
-    context = {"course": course, "user": user, "enrollment": enrollment, "submission":submission, "answers": answers}
+    number_of_answers = 0
+    number_of_selected_correct = 0
+    list_choices = []
+    list_is_correct = []
+    for choice in choices:
+        if choice.is_correct == True:
+            number_of_answers += 1
+        for answer in answers:
+            if choice.is_correct == True and choice.id == answer:
+                number_of_selected_correct += 1
+            elif choice.is_correct == False and choice.id == answer:
+                number_of_answers += 1        
+    #for question in course.question_set.all:
+        #number_of_answers += 1
+        #for choice in question.choice_set.all:
+            #if choice.is_correct == True and choice.id == answer:
+                #number_of_selected_correct += 1
+                #number_of_answers += 1
+            #else:
+                #number_of_answers += 1
+    grade = int(number_of_selected_correct / number_of_answers * 100)
+    context = {"course": course, "user": user, "enrollment": enrollment, "submission":submission, "answers": answers, "grade": grade}
     return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
 
 """
